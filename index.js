@@ -1,12 +1,9 @@
 const Calls = async function (song) {
   try {
     let Song = await fetch(song);
-    console.log(Song);
     if (Song.ok) {
       let ArrayOfSongs = await Song.json();
-      console.log(ArrayOfSongs);
       let Currentsong = ArrayOfSongs.data[0];
-      console.log(Currentsong);
       const {
         artist: { name },
       } = Currentsong;
@@ -42,12 +39,9 @@ Calls("https://striveschool-api.herokuapp.com/api/deezer/search?q=one%20more%20l
 const call = async function (song) {
   try {
     let DataFromUrl = await fetch(song);
-    console.log(DataFromUrl);
     if (DataFromUrl.ok) {
       let SongObj = await DataFromUrl.json();
       const FavoriteSong = SongObj.data[0];
-      console.log(FavoriteSong);
-      console.log(FavoriteSong.title);
       const {
         artist: { name },
       } = FavoriteSong;
@@ -86,12 +80,9 @@ call("https://striveschool-api.herokuapp.com/api/deezer/search?q=viva%20la%20vid
 const CallforCarousel = async function (song) {
   try {
     let Song = await fetch(song);
-    console.log(Song);
     if (Song.ok) {
       let ArrayOfSongs = await Song.json();
-      console.log(ArrayOfSongs);
       let Currentsong = ArrayOfSongs.data[0];
-      console.log(Currentsong);
       const {
         artist: { name },
       } = Currentsong;
