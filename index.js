@@ -18,7 +18,7 @@ const Calls = async function (song) {
             <div class="crad mb-3 border border-0 rounded shadow p-3 bg-info-subtle" style="width: 100$;">
             <img src="${cover_big}"class="card-img-top rounded" alt="">
             <div class="card-body">
-            <h5 class="card-title mt-2">${Currentsong.title}</h5>
+            <h5 class="card-title mt-2" rank="${Currentsong.rank}">${Currentsong.title}</h5>
             <p class="card-text">Artist: ${name}</p>
             <audio class="w-100" controls src="${Currentsong.preview}"></audio>
             </div>
@@ -42,6 +42,7 @@ const call = async function (song) {
     if (DataFromUrl.ok) {
       let SongObj = await DataFromUrl.json();
       const FavoriteSong = SongObj.data[0];
+      console.log(FavoriteSong);
       const {
         artist: { name },
       } = FavoriteSong;
@@ -60,7 +61,7 @@ const call = async function (song) {
     </div>
     <div class="col-md-8">
       <div class="card-body">
-        <h5 class="card-title">${FavoriteSong.title}</h5>
+        <h5 class="card-title" rank="${FavoriteSong.rank}">${FavoriteSong.title}</h5>
         <p class="card-text">Artist: ${name}</p>
         <audio controls src="${FavoriteSong.preview}"></audio>
         </div>
@@ -84,9 +85,6 @@ const CallforCarousel = async function (song) {
       let ArrayOfSongs = await Song.json();
       let Currentsong = ArrayOfSongs.data[0];
       const {
-        artist: { name },
-      } = Currentsong;
-      const {
         album: { cover_big },
       } = Currentsong;
       let carousel = document.getElementById("carousel");
@@ -106,3 +104,62 @@ const CallforCarousel = async function (song) {
 CallforCarousel("https://striveschool-api.herokuapp.com/api/deezer/search?q=sweetbutpsycho");
 CallforCarousel("https://striveschool-api.herokuapp.com/api/deezer/search?q=ghost");
 CallforCarousel("https://striveschool-api.herokuapp.com/api/deezer/search?q=smoke%20+%20mirrors");
+
+const GetAlltitleArray = function () {
+  let GetAlltitle = document.querySelectorAll(".card-title");
+  let Alltitle = [];
+  GetAlltitle.forEach((title) => {
+    Alltitle.push({
+      title: title.innerText,
+      rank: Number(title.getAttribute("rank")),
+    });
+  });
+  console.log(Alltitle);
+  return Alltitle;
+};
+
+const alertPlaceholder = document.getElementById("AppendHere");
+
+const OrderByRank = function () {
+  alertPlaceholder.classList.add("d-flex");
+  const wrapper = document.createElement("ul");
+  const AlertButton = document.createElement("button");
+  const AlertDiv = document.createElement("div");
+  AlertDiv.classList.add(
+    "p-2",
+    "border",
+    "border-1",
+    "border-success",
+    "rounded",
+    "mt-2",
+    "align-items-center",
+    "bg-success",
+    "bg-gradient",
+    "opacity-50",
+    "d-flex",
+    "justify-content-between"
+  );
+  AlertDiv.id = "AlertDiv";
+  AlertButton.onclick = DeleteAlert;
+  AlertButton.classList.add("btn", "btn-success", "border", "border-1");
+  AlertButton.innerText = "X";
+  wrapper.classList.add("d-flex", "list-unstyled", "mb-0");
+  alertPlaceholder.append(AlertDiv);
+  AlertDiv.append(wrapper);
+  AlertDiv.append(AlertButton);
+  let titles = GetAlltitleArray();
+  let sorted = titles.sort((a, b) => {
+    return a.rank - b.rank;
+  });
+  sorted.forEach((song) => {
+    wrapper.innerHTML += `<li class="me-3 text-white">${song.title} - ${song.rank}</li>`;
+  });
+};
+
+let DeleteAlert = function () {
+  let AlertDiv = document.getElementById("AlertDiv");
+  AlertDiv.remove();
+};
+
+let SongsByRankButton = document.getElementById("liveAlertBtn");
+SongsByRankButton.addEventListener("click", OrderByRank);

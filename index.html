@@ -11,15 +11,18 @@
       integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./index.css" />
   </head>
   <body class="bg-dark-subtle">
     <div class="container bg-body">
-      <div class="row sticky-top">
+      <div class="row sticky-top" id="AppendHere">
         <nav class="navbar bg-dark bg-gradient opacity-75 px-2 rounded-bottom">
           <div class="d-flex justify-content-between align-items-center w-100">
             <a class="navbar-brand text-white" href="#">Music<i class="bi bi-music-note-beamed ms-1"></i></a>
             <form class="d-flex justify-content-end">
-              <button class="btn btn-outline-success me-2" type="button" id="liveAlertBtn">Get the older Album</button>
+              <button class="btn btn-outline-success me-2" type="button" id="liveAlertBtn">
+                Get all Songs by rank
+              </button>
               <button class="btn btn-sm btn-outline-primary" type="button">Get all Albums and Songs</button>
             </form>
           </div>
