@@ -143,7 +143,7 @@ const OrderByRank = function () {
   AlertButton.onclick = DeleteAlert;
   AlertButton.classList.add("btn", "btn-success", "border", "border-1");
   AlertButton.innerText = "X";
-  wrapper.classList.add("d-flex", "list-unstyled", "mb-0");
+  wrapper.classList.add("d-flex", "flex-column", "flex-md-row", "list-unstyled", "mb-0");
   alertPlaceholder.append(AlertDiv);
   AlertDiv.append(wrapper);
   AlertDiv.append(AlertButton);
